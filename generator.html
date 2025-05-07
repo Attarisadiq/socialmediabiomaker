@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600&family=Playfair+Display:ital@0;1&family=Roboto:wght@400;500&family=Dancing+Script:wght@400;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <section class="generator-section">
+        <h2>Create Your Bio</h2>
+        <div class="generator-container">
+            <!-- Style Options -->
+            <div class="style-options">
+                <label class="style-option">
+                    <input type="radio" name="bio-style" value="minimal" checked>
+                    <div class="style-preview">
+                        <h4 class="style-name">Minimal</h4>
+                        <p class="style-description">Clean and simple design</p>
+                        <div class="style-preview-text bio-style-minimal">
+                            Your bio preview here...
+                        </div>
+                    </div>
+                </label>
+
+                <label class="style-option">
+                    <input type="radio" name="bio-style" value="modern">
+                    <div class="style-preview">
+                        <h4 class="style-name">Modern</h4>
+                        <p class="style-description">Contemporary and sleek</p>
+                        <div class="style-preview-text bio-style-modern">
+                            Your bio preview here...
+                        </div>
+                    </div>
+                </label>
+
+                <label class="style-option">
+                    <input type="radio" name="bio-style" value="creative">
+                    <div class="style-preview">
+                        <h4 class="style-name">Creative</h4>
+                        <p class="style-description">Artistic and unique</p>
+                        <div class="style-preview-text bio-style-creative">
+                            Your bio preview here...
+                        </div>
+                    </div>
+                </label>
+
+                <label class="style-option">
+                    <input type="radio" name="bio-style" value="professional">
+                    <div class="style-preview">
+                        <h4 class="style-name">Professional</h4>
+                        <p class="style-description">Formal and business-like</p>
+                        <div class="style-preview-text bio-style-professional">
+                            Your bio preview here...
+                        </div>
+                    </div>
+                </label>
+
+                <label class="style-option">
+                    <input type="radio" name="bio-style" value="elegant">
+                    <div class="style-preview">
+                        <h4 class="style-name">Elegant</h4>
+                        <p class="style-description">Sophisticated and refined</p>
+                        <div class="style-preview-text bio-style-elegant">
+                            Your bio preview here...
+                        </div>
+                    </div>
+                </label>
+
+                <label class="style-option">
+                    <input type="radio" name="bio-style" value="bold">
+                    <div class="style-preview">
+                        <h4 class="style-name">Bold</h4>
+                        <p class="style-description">Strong and impactful</p>
+                        <div class="style-preview-text bio-style-bold">
+                            Your bio preview here...
+                        </div>
+                    </div>
+                </label>
+            </div>
+
+            <!-- Bio Content Form -->
+            <form id="bio-form">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="occupation">Occupation</label>
+                    <input type="text" id="occupation" name="occupation" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="interests">Interests (comma-separated)</label>
+                    <input type="text" id="interests" name="interests" placeholder="e.g., photography, travel, music">
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" placeholder="e.g., New York, USA">
+                </div>
+
+                <div class="form-group">
+                    <label for="social-handle">Social Media Handle</label>
+                    <input type="text" id="social-handle" name="social-handle" placeholder="e.g., @username">
+                </div>
+
+                <div class="form-group">
+                    <label for="bio-tone">Bio Tone</label>
+                    <select id="bio-tone" name="bio-tone">
+                        <option value="casual">Casual</option>
+                        <option value="professional">Professional</option>
+                        <option value="friendly">Friendly</option>
+                        <option value="humorous">Humorous</option>
+                        <option value="inspirational">Inspirational</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="platform">Social Media Platform</label>
+                    <select id="platform" name="platform" required>
+                        <option value="instagram">Instagram</option>
+                        <option value="telegram">Telegram</option>
+                        <option value="twitter">Twitter</option>
+                        <option value="linkedin">LinkedIn</option>
+                        <option value="tiktok">TikTok</option>
+                        <option value="facebook">Facebook</option>
+                    </select>
+                </div>
+
+                <!-- Style Customization -->
+                <div class="style-customization">
+                    <h3>Customize Your Style</h3>
+                    <div class="customization-options">
+                        <div class="customization-option">
+                            <label for="font-size">Font Size</label>
+                            <select id="font-size" name="font-size">
+                                <option value="small">Small</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="large">Large</option>
+                                <option value="xlarge">Extra Large</option>
+                            </select>
+                        </div>
+
+                        <div class="customization-option">
+                            <label for="text-align">Text Alignment</label>
+                            <select id="text-align" name="text-align">
+                                <option value="left">Left</option>
+                                <option value="center" selected>Center</option>
+                                <option value="right">Right</option>
+                            </select>
+                        </div>
+
+                        <div class="customization-option">
+                            <label for="emoji-style">Emoji Style</label>
+                            <select id="emoji-style" name="emoji-style">
+                                <option value="none">No Emojis</option>
+                                <option value="minimal" selected>Minimal</option>
+                                <option value="creative">Creative</option>
+                                <option value="nature">Nature</option>
+                                <option value="tech">Tech</option>
+                                <option value="food">Food</option>
+                                <option value="travel">Travel</option>
+                            </select>
+                        </div>
+
+                        <div class="customization-option">
+                            <label for="line-spacing">Line Spacing</label>
+                            <select id="line-spacing" name="line-spacing">
+                                <option value="compact">Compact</option>
+                                <option value="normal" selected>Normal</option>
+                                <option value="spacious">Spacious</option>
+                            </select>
+                        </div>
+
+                        <div class="customization-option">
+                            <label for="text-transform">Text Transform</label>
+                            <select id="text-transform" name="text-transform">
+                                <option value="none">None</option>
+                                <option value="uppercase">UPPERCASE</option>
+                                <option value="capitalize">Capitalize</option>
+                                <option value="lowercase">lowercase</option>
+                            </select>
+                        </div>
+
+                        <div class="customization-option">
+                            <label for="accent-color">Accent Color</label>
+                            <select id="accent-color" name="accent-color">
+                                <option value="blue">Blue</option>
+                                <option value="purple">Purple</option>
+                                <option value="green">Green</option>
+                                <option value="pink">Pink</option>
+                                <option value="orange">Orange</option>
+                                <option value="teal">Teal</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="generate-btn">Generate Bio</button>
+            </form>
+
+            <!-- Preview Section -->
+            <div class="preview-section" style="display: none;">
+                <h3 class="preview-title">Your Bio Preview</h3>
+                <div class="preview-content">
+                    <p id="generated-bio" class="generated-bio"></p>
+                </div>
+                <div class="preview-actions">
+                    <button class="copy-btn">Copy to Clipboard</button>
+                    <button class="save-btn">Save as Template</button>
+                    <button class="share-btn">Share Bio</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html> 

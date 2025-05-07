@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">Bio Generator</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Create Amazing Social Media Bios</h1>
+            <p>Generate creative and engaging bios for Instagram, Telegram, and more!</p>
+            <a href="#generator" class="cta-button">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Bio Generator Section -->
+    <section id="generator" class="generator-section">
+        <h2>Bio Generator</h2>
+        <div class="generator-container">
+            <div class="form-group">
+                <label for="platform">Select Platform:</label>
+                <select id="platform">
+                    <option value="instagram">Instagram</option>
+                    <option value="telegram">Telegram</option>
+                    <option value="twitter">Twitter</option>
+                    <option value="linkedin">LinkedIn</option>
+                    <option value="tiktok">TikTok</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="profession">Profession/Industry:</label>
+                <input type="text" id="profession" placeholder="e.g., Digital Marketer, Artist, Developer">
+            </div>
+            <div class="form-group">
+                <label for="interest">Your Interest:</label>
+                <input type="text" id="interest" placeholder="Enter your interest">
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" placeholder="Enter your location">
+            </div>
+            <div class="form-group">
+                <label for="handle">Social Handle:</label>
+                <input type="text" id="handle" placeholder="@yourhandle">
+            </div>
+            <div class="form-group">
+                <label for="goal">Your Goal:</label>
+                <input type="text" id="goal" placeholder="Enter your goal">
+            </div>
+            <div class="form-group">
+                <label for="tone">Bio Tone:</label>
+                <select id="tone">
+                    <option value="professional">Professional</option>
+                    <option value="casual">Casual</option>
+                    <option value="funny">Funny</option>
+                    <option value="motivational">Motivational</option>
+                    <option value="creative">Creative</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="emoji-style">Emoji Style:</label>
+                <select id="emoji-style">
+                    <option value="none">No Emojis</option>
+                    <option value="minimal">Minimal</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="lots">Lots of Emojis</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="keywords">Keywords:</label>
+                <input type="text" id="keywords" placeholder="Separate keywords with commas">
+            </div>
+            <div class="form-group">
+                <label for="birthday">Birthday:</label>
+                <input type="text" id="birthday" placeholder="e.g., March 15">
+            </div>
+            <div class="form-group">
+                <label for="hobbies">Hobbies:</label>
+                <input type="text" id="hobbies" placeholder="e.g., Photography, Travel">
+            </div>
+            <div class="form-group">
+                <label for="website">Website/Portfolio:</label>
+                <input type="text" id="website" placeholder="Your website URL">
+            </div>
+            <div class="form-group">
+                <label for="quote">Favorite Quote:</label>
+                <input type="text" id="quote" placeholder="Your favorite quote">
+            </div>
+            <div class="form-group">
+                <label for="languages">Languages:</label>
+                <input type="text" id="languages" placeholder="e.g., EN, ES, FR">
+            </div>
+            <button onclick="generateBio()" class="generate-btn">Generate Bio</button>
+        </div>
+        <div id="result" class="result-container">
+            <div id="generatedBio" class="generated-bio"></div>
+            <button onclick="copyBio()" class="copy-btn">Copy Bio</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2>Why Choose Us?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-magic"></i>
+                <h3>Creative Templates</h3>
+                <p>Multiple creative templates for each platform</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-bolt"></i>
+                <h3>Quick Generation</h3>
+                <p>Generate bios instantly with one click</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-copy"></i>
+                <h3>Easy Copy</h3>
+                <p>Copy your bio with a single click</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Bio Generator</h3>
+                <p>Create amazing social media bios instantly!</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Bio Generator. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

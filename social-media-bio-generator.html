@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Bio Generator</title>
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --success: #00b894;
+            --error: #d63031;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+        }
+        
+        .header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .form-container {
+            padding: 25px;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 14px;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            background-color: #f1f2f6;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .checkbox-item:hover {
+            background-color: #e6e7eb;
+        }
+        
+        .checkbox-item.selected {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .checkbox-item input {
+            display: none;
+        }
+        
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            background-color: #5649c0;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.2);
+        }
+        
+        .result-container {
+            padding: 25px;
+            background-color: #f8f9fa;
+            display: none;
+        }
+        
+        .bio-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .bio-text {
+            margin-bottom: 15px;
+            font-size: 15px;
+            line-height: 1.5;
+            white-space: pre-line;
+        }
+        
+        .bio-platform {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+        
+        .bio-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .copy-btn {
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .copy-btn:hover {
+            background-color: #00a083;
+        }
+        
+        .character-count {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .back-btn {
+            background-color: #dfe6e9;
+            color: #636e72;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: block;
+            width: 100%;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+        
+        .back-btn:hover {
+            background-color: #c8d1d3;
+        }
+        
+        .copied-message {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--success);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                border-radius: 0;
+            }
+            
+            .form-container, .result-container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Social Media Bio Generator</h1>
+            <p>Create unique and engaging bios for Instagram, Telegram, and more!</p>
+        </div>
+        
+        <div class="form-container" id="form-container">
+            <div class="input-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" placeholder="Enter your name">
+            </div>
+            
+            <div class="input-group">
+                <label for="gender">Gender (Optional)</label>
+                <select id="gender">
+                    <option value="">Prefer not to say</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="non-binary">Non-binary</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label>Profession or Interests (Select up to 3)</label>
+                <div class="checkbox-group" id="interests">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="photographer" value="Photographer">
+                        <label for="photographer">Photographer</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="traveler" value="Traveler">
+                        <label for="traveler">Traveler</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="coder" value="Coder">
+                        <label for="coder">Coder</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="writer" value="Writer">
+                        <label for="writer">Writer</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="designer" value="Designer">
+                        <label for="designer">Designer</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="entrepreneur" value="Entrepreneur">
+                        <label for="entrepreneur">Entrepreneur</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="foodie" value="Foodie">
+                        <label for="foodie">Foodie</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="fitness" value="Fitness">
+                        <label for="fitness">Fitness</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="artist" value="Artist">
+                        <label for="artist">Artist</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="musician" value="Musician">
+                        <label for="musician">Musician</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label>Personality Traits (Select up to 3)</label>
+                <div class="checkbox-group" id="traits">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="funny" value="Funny">
+                        <label for="funny">Funny</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="creative" value="Creative">
+                        <label for="creative">Creative</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="ambitious" value="Ambitious">
+                        <label for="ambitious">Ambitious</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="mysterious" value="Mysterious">
+                        <label for="mysterious">Mysterious</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="authentic" value="Authentic">
+                        <label for="authentic">Authentic</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="analytical" value="Analytical">
+                        <label for="analytical">Analytical</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="adventurous" value="Adventurous">
+                        <label for="adventurous">Adventurous</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="thoughtful" value="Thoughtful">
+                        <label for="thoughtful">Thoughtful</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label for="style">Preferred Bio Style</label>
+                <select id="style">
+                    <option value="professional">Professional</option>
+                    <option value="cool">Cool & Casual</option>
+                    <option value="aesthetic">Aesthetic</option>
+                    <option value="funny">Funny</option>
+                    <option value="motivational">Motivational</option>
+                    <option value="minimalist">Minimalist</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label for="emojis">Include Emojis?</label>
+                <select id="emojis">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                    <option value="minimal">Minimal (1-2 only)</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label for="platforms">Select Platforms</label>
+                <select id="platforms" multiple size="3">
+                    <option value="instagram" selected>Instagram</option>
+                    <option value="telegram" selected>Telegram</option>
+                    <option value="twitter">Twitter</option>
+                    <option value="tiktok">TikTok</option>
+                    <option value="linkedin">LinkedIn</option>
+                </select>
+                <small style="color: #666; font-size: 12px; margin-top: 5px; display: block;">Hold Ctrl/Cmd to select multiple</small>
+            </div>
+            
+            <button class="btn" id="generate-btn">Generate Bio Options</button>
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <h2 style="margin-bottom: 20px; text-align: center; color: var(--dark);">Your Generated Bios</h2>
+            <div id="bios-container"></div>
+            <button class="back-btn" id="back-btn">Create Another Bio</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle checkbox-item selection
+            const checkboxItems = document.querySelectorAll('.checkbox-item');
+            checkboxItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const checkbox = this.querySelector('input[type="checkbox"]');
+                    checkbox.checked = !checkbox.checked;
+                    
+                    // Toggle selected class
+                    this.classList.toggle('selected', checkbox.checked);
+                    
+                    // Limit selection to 3
+                    const parentGroup = this.parentElement;
+                    const checkedBoxes = parentGroup.querySelectorAll('input[type="checkbox"]:checked');
+                    
+                    if (checkedBoxes.length > 3) {
+                        checkedBoxes[0].checked = false;
+                        checkedBoxes[0].parentElement.classList.remove('selected');
+                    }
+                });
+            });
+            
+            // Generate button click handler
+            document.getElementById('generate-btn').addEventListener('click', generateBios);
+            
+            // Back button click handler
+            document.getElementById('back-btn').addEventListener('click', () => {
+                document.getElementById('form-container').style.display = 'block';
+                document.getElementById('result-container').style.display = 'none';
+            });
+        });
+        
+        function generateBios() {
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const gender = document.getElementById('gender').value;
+            
+            // Get interests
+            const interestElements = document.querySelectorAll('#interests input:checked');
+            const interests = Array.from(interestElements).map(el => el.value);
+            
+            // Get traits
+            const traitElements = document.querySelectorAll('#traits input:checked');
+            const traits = Array.from(traitElements).map(el => el.value);
+            
+            // Get style and emoji preference
+            const style = document.getElementById('style').value;
+            const emojiPreference = document.getElementById('emojis').value;
+            
+            // Get platforms
+            const platformElements = document.getElementById('platforms').selectedOptions;
+            const platforms = Array.from(platformElements).map(el => el.value);
+            
+            // Validate inputs
+            if (!name) {
+                alert('Please enter your name');
+                return;
+            }
+            
+            if (interests.length === 0) {
+                alert('Please select at least one interest');
+                return;
+            }
+            
+            if (traits.length === 0) {
+                alert('Please select at least one personality trait');
+                return;
+            }
+            
+            if (platforms.length === 0) {
+                alert('Please select at least one platform');
+                return;
+            }
+            
+            // Generate bios based on inputs
+            const generatedBios = createBios(name, gender, interests, traits, style, emojiPreference, platforms);
+            
+            // Display results
+            displayBios(generatedBios, platforms);
+            
+            // Show results container
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('result-container').style.display = 'block';
+        }
+        
+        function createBios(name, gender, interests, traits, style, emojiPreference, platforms) {
+            const bios = {};
+            
+            // Helper function to get random items
+            const getRandomItems = (arr, count) => {
+                const shuffled = [...arr].sort(() => 0.5 - Math.random());
+                return shuffled.slice(0, count);
+            };
+            
+            // Emoji dictionaries based on interests and traits
+            const interestEmojis = {
+                'Photographer': '📸',
+                'Traveler': '✈️',
+                'Coder': '💻',
+                'Writer': '✍️',
+                'Designer': '🎨',
+                'Entrepreneur': '🚀',
+                'Foodie': '🍕',
+                'Fitness': '💪',
+                'Artist': '🎭',
+                'Musician': '🎵'
+            };
+            
+            const traitEmojis = {
+                'Funny': '😂',
+                'Creative': '✨',
+                'Ambitious': '🔥',
+                'Mysterious': '🌙',
+                'Authentic': '💯',
+                'Analytical': '🧠',
+                'Adventurous': '🧗',
+                'Thoughtful': '💭'
+            };
+            
+            // Create separators based on style
+            let separators = ['•', '|', '↟', '→', '×', '✧', '▪️', '◈', '⚬', '◆'];
+            if (style === 'aesthetic') {
+                separators = ['✧', '✦', '⋆', '✴', '⁺˚', '•❅', '☆', '❋', '✿', '❀'];
+            } else if (style === 'minimalist') {
+                separators = ['•', '|', '.', '–', '·', '●', '○', '-', '/', ' '];
+            }
+            
+            // Get random separator
+            const separator = separators[Math.floor(Math.random() * separators.length)];
+            
+            // Bio templates for different styles and platforms
+            platforms.forEach(platform => {
+                const platformBios = [];
+                
+                // Platform-specific character limits
+                const charLimits = {
+                    'instagram': 150,
+                    'telegram': 70,
+                    'twitter': 160,
+                    'tiktok': 80,
+                    'linkedin': 120
+                };
+                
+                // Get emoji string based on preference
+                let emojiString = '';
+                if (emojiPreference === 'yes') {
+                    // Get emojis for selected interests and traits
+                    const interestEmojiList = interests.map(i => interestEmojis[i] || '');
+                    const traitEmojiList = traits.map(t => traitEmojis[t] || '');
+                    emojiString = [...interestEmojiList, ...traitEmojiList].filter(e => e).join(' ');
+                } else if (emojiPreference === 'minimal') {
+                    // Just pick 1-2 most relevant emojis
+                    const allEmojis = [
+                        ...interests.map(i => interestEmojis[i] || ''),
+                        ...traits.map(t => traitEmojis[t] || '')
+                    ].filter(e => e);
+                    emojiString = getRandomItems(allEmojis, 2).join(' ');
+                }
+                
+                // Generate multi-line bios (4-5 lines)
+                // Get random interest and trait
+                const randomInterest = interests[Math.floor(Math.random() * interests.length)];
+                const randomTrait = traits[Math.floor(Math.random() * traits.length)];
+                
+                // Create quote/motto options based on style
+                const quotes = {
+                    'professional': [
+                        "Excellence in every endeavor",
+                        "Creating value through passion",
+                        "Dedicated to exceptional quality"
+                    ],
+                    'cool': [
+                        "vibes only",
+                        "living authentically",
+                        "chasing dreams, not people"
+                    ],
+                    'aesthetic': [
+                        "✧ dreamer & creator ✧",
+                        "finding beauty in simplicity",
+                        "collecting moments, not things"
+                    ],
+                    'funny': [
+                        "professional overthinking champion",
+                        "slightly weird, completely awesome",
+                        "probably thinking about tacos right now"
+                    ],
+                    'motivational': [
+                        "Dream bigger. Work harder. Achieve more.",
+                        "Creating my own sunshine",
+                        "Turning obstacles into opportunities"
+                    ],
+                    'minimalist': [
+                        "less is more",
+                        "simplicity is key",
+                        "essentials only"
+                    ]
+                };
+                
+                // Pick a random quote based on style
+                const randomQuote = quotes[style][Math.floor(Math.random() * quotes[style].length)];
+                
+                // Create line components
+                const nameLineWithEmoji = emojiPreference !== 'no' ? 
+                    `${name} ${interestEmojis[randomInterest] || ''}` : 
+                    name;
+                
+                const interestLine = `${randomInterest} ${separator} ${randomTrait}`;
+                
+                const locationLine = gender ? 
+                    `Based in ${gender === 'female' ? 'her' : gender === 'male' ? 'his' : 'their'} own universe` : 
+                    "Based somewhere on Earth";
+                    
+                const contactLine = "DM for collabs/inquiries";
+                
+                // Bio 1 - 4 lines: Name, Interests, Quote, Contact
+                const bio1 = `${nameLineWithEmoji}\n${interestLine}\n${randomQuote}\n${contactLine}`;
+                
+                // Bio 2 - 5 lines: Name, Interests, Quote, Location, Contact
+                const bio2 = `${nameLineWithEmoji}\n${interestLine}\n${randomQuote}\n${locationLine}\n${contactLine}`;
+                
+                // Bio 3 - 4-5 lines with different structure
+                let bio3 = '';
+                
+                if (style === 'professional') {
+                    bio3 = `${name}\n${randomInterest} Professional\n${randomTrait} Specialist\n"${randomQuote}"\n${contactLine}`;
+                } else if (style === 'cool') {
+                    bio3 = `just call me ${name}\n${randomTrait.toLowerCase()} vibes only\n${randomInterest.toLowerCase()} enthusiast\n${randomQuote}`;
+                } else if (style === 'aesthetic') {
+                    bio3 = `✧ ${name} ✧\n${randomTrait} soul\n${randomInterest} lover\n✧ ${randomQuote} ✧\n${contactLine}`;
+                } else if (style === 'funny') {
+                    bio3 = `Warning: contains ${randomTrait.toLowerCase()}\nProfessional ${randomInterest.toLowerCase()}\nAmateur human being\n${randomQuote}\n- ${name}`;
+                } else if (style === 'motivational') {
+                    bio3 = `${name}\nPassionate ${randomInterest}\n${randomTrait} Mindset\n${randomQuote}\nLet's connect & create!`;
+                } else if (style === 'minimalist') {
+                    bio3 = `${name}.\n${randomInterest}.\n${randomTrait}.\n${randomQuote}.`;
+                }
+                
+                // Trim bios to fit platform character limits
+                const charLimit = charLimits[platform] || 150;
+                
+                // Add emojis to the end of each bio if needed
+                let bioWithEmojis1 = bio1;
+                let bioWithEmojis2 = bio2;
+                let bioWithEmojis3 = bio3;
+                
+                if (emojiPreference === 'yes' && !bio1.includes(emojiString) && emojiString) {
+                    bioWithEmojis1 = bio1 + '\n' + emojiString;
+                }
+                
+                if (emojiPreference === 'yes' && !bio2.includes(emojiString) && emojiString) {
+                    bioWithEmojis2 = bio2 + '\n' + emojiString;
+                }
+                
+                if (emojiPreference === 'yes' && !bio3.includes(emojiString) && emojiString) {
+                    bioWithEmojis3 = bio3 + '\n' + emojiString;
+                }
+                
+                platformBios.push(bioWithEmojis1.length > charLimit ? bioWithEmojis1.substring(0, charLimit - 3) + '...' : bioWithEmojis1);
+                platformBios.push(bioWithEmojis2.length > charLimit ? bioWithEmojis2.substring(0, charLimit - 3) + '...' : bioWithEmojis2);
+                platformBios.push(bioWithEmojis3.length > charLimit ? bioWithEmojis3.substring(0, charLimit - 3) + '...' : bioWithEmojis3);
+                
+                bios[platform] = platformBios;
+            });
+            
+            return bios;
+        }
+        
+        function displayBios(bios, platforms) {
+            const container = document.getElementById('bios-container');
+            container.innerHTML = '';
+            
+            platforms.forEach(platform => {
+                const platformBios = bios[platform] || [];
+                
+                platformBios.forEach((bio, index) => {
+                    const bioCard = document.createElement('div');
+                    bioCard.className = 'bio-card';
+                    
+                    const platformLabel = document.createElement('div');
+                    platformLabel.className = 'bio-platform';
+                    platformLabel.textContent = platform.charAt(0).toUpperCase() + platform.slice(1);
+                    
+                    const bioText = document.createElement('div');
+                    bioText.className = 'bio-text';
+                    bioText.textContent = bio;
+                    
+                    const bioActions = document.createElement('div');
+                    bioActions.className = 'bio-actions';
+                    
+                    const charCount = document.createElement('div');
+                    charCount.className = 'character-count';
+                    charCount.textContent = `${bio.length} characters`;
+                    
+                    const copyBtn = document.createElement('button');
+                    copyBtn.className = 'copy-btn';
+                    copyBtn.textContent = 'Copy';
+                    
+                    const copiedMsg = document.createElement('div');
+                    copiedMsg.className = 'copied-message';
+                    copiedMsg.textContent = 'Copied!';
+                    
+                    copyBtn.addEventListener('click', () => {
+                        // Create a temporary textarea element to handle multiline text
+                        const textarea = document.createElement('textarea');
+                        textarea.value = bio;
+                        textarea.style.position = 'fixed';  // Avoid scrolling to bottom
+                        document.body.appendChild(textarea);
+                        textarea.select();
+                        
+                        try {
+                            // Execute copy command
+                            document.execCommand('copy');
+                            copiedMsg.style.opacity = '1';
+                            setTimeout(() => {
+                                copiedMsg.style.opacity = '0';
+                            }, 2000);
+                        } catch (err) {
+                            console.error('Unable to copy', err);
+                            alert('Copy failed. Please try again.');
+                        } finally {
+                            // Remove the temporary element
+                            document.body.removeChild(textarea);
+                        }
+                    });
+                    
+                    bioActions.appendChild(charCount);
+                    bioActions.appendChild(copyBtn);
+                    
+                    bioCard.appendChild(platformLabel);
+                    bioCard.appendChild(bioText);
+                    bioCard.appendChild(bioActions);
+                    bioCard.appendChild(copiedMsg);
+                    
+                    container.appendChild(bioCard);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
